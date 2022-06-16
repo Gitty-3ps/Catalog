@@ -5,7 +5,7 @@ using Catalog.Entities;
 
 namespace Catalog.Repositories
 {
-    public class InMemItemsRepository
+    public class InMemItemsRepository : IItemsRepository
     {
         private readonly List<Item> items = new()
         {
@@ -24,5 +24,5 @@ namespace Catalog.Repositories
             return items.Where(item => item.Id == id).SingleOrDefault(); // Finds: return item, Not FindL Returns No.
         }
     }
-    
+
 }
