@@ -1,9 +1,11 @@
+using Catalog.Dtos;
 using Catalog.Entities;
 using Catalog.Repositories;
 using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace Catalog.Controllers
 {
@@ -23,23 +25,23 @@ namespace Catalog.Controllers
 
         // Get /items
         [HttpGet]
-        public IEnumerable<Item> GetItems()
+        public IEnumerable<ItemDto> GetItems()
         {
-            var items = repository.GetItems();
+            var items = repository.GetItems().Select( item => item.AsDto());
             return items;
         }
         
         // Get /items/{id}
         [HttpGet("{id}")]
-        public ActionResult<Item> GetItem(Guid id) // ActionResult allows you to return more than one type for this method
+        public ActionResult<ItemDto> GetItem(Guid id) // ActionResult allows you to return more than one type for this method
         {
-            var item = repository.GetItem(id);
+            var item = repository.GetItem(id); //.AsDto()
  
             if (item is null)
             {
                 return NotFound();
             }
-            return item;
+            return item.AsDto();
         }
     }
 
