@@ -27,7 +27,7 @@ namespace Catalog.Repositories
 
         public Item GetItem(Guid id)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); //Look back at video here 
         }
 
         public IEnumerable<Item> GetItems()

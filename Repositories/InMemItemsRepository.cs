@@ -21,7 +21,13 @@ namespace Catalog.Repositories
 
         public Item GetItem(Guid id)
         {
-            return items.Where(item => item.Id == id).SingleOrDefault(); // Finds: return item, Not FindL Returns No.
+         
+            var item = items.Where(item => item.Id == id).SingleOrDefault();
+            if (item is null){
+                throw new NullReferenceException($"Unable to find item with id {id}");
+            }
+            return item;
+            // return items.Where(item => item.Id == id).SingleOrDefault(); // Finds: return item, Not FindL Returns No.
         }
 
         public void CreateItem(Item item)
